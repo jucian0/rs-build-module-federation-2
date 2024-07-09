@@ -5,7 +5,8 @@ export function Layout() {
     <div style={{ display: 'flex', gap: 10, flexDirection: "column" }}>
       <div style={{ display: 'flex', gap: 10 }}>
         <Link to="/">Home</Link>
-        <Link to="/remote">Remote</Link>
+        <Link to="/remote/apps">From Host to Remote/App</Link>
+        <Link to="/remote/tokens">From Host to Remote Tokens</Link>
       </div>
       <Outlet />
     </div>
