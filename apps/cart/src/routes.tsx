@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Tokens } from "./pages/tokens";
-import { Apps } from "./pages/apps";
+import { Item } from "./pages/item";
+import { List } from "./pages/list";
 import { Layout } from "./layout";
 import { Home } from "./pages/home";
 
@@ -14,12 +14,12 @@ export const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: "tokens",
-				element: <Tokens />,
+				path: "list",
+				element: <List />,
 			},
 			{
-				path: "apps",
-				element: <Apps />,
+				path: "item",
+				element: <Item />,
 			},
 			{
 				path: "*",

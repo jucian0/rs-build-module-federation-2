@@ -16,7 +16,7 @@ function useDispatcherNavigationEvent(appName: string, remoteBasename: string) {
   }, [location, remoteBasename, appName]);
 
   useEffect(() => {
-    const app1NavigationEventHandler = (event: Event) => {
+    const remoteNavigationEventHandler = (event: Event) => {
       const pathname = (event as CustomEvent<string>).detail;
       const newPathname = `${remoteBasename}${pathname}`;
       if (newPathname === location.pathname) {
@@ -24,12 +24,12 @@ function useDispatcherNavigationEvent(appName: string, remoteBasename: string) {
       }
       navigate(newPathname);
     };
-    window.addEventListener(`[${remoteBasename}] - navigated`, app1NavigationEventHandler);
+    window.addEventListener(`[${remoteBasename}] - navigated`, remoteNavigationEventHandler);
 
     return () => {
       window.removeEventListener(
         `[${remoteBasename}] - navigated`,
-        app1NavigationEventHandler
+        remoteNavigationEventHandler
       );
     };
   }, [location]);
@@ -39,13 +39,16 @@ function useDispatcherNavigationEvent(appName: string, remoteBasename: string) {
 export function Layout() {
 
   useDispatcherNavigationEvent('shell', '/remote');
+  useDispatcherNavigationEvent('shell', '/cart');
 
   return (
     <div style={{ display: 'flex', gap: 10, flexDirection: "column" }}>
       <div style={{ display: 'flex', gap: 10 }}>
         <Link to="/">Home</Link>
         <Link to="/remote/apps">From Host to Remote/App</Link>
-        <Link to="/remote/tokens">From Host to Remote Tokens</Link>
+        <Link to="/remote/tokens">From Host to Remote/Tokens</Link>
+        <Link to="/cart/item">From Host to Cart/item</Link>
+        <Link to="/cart/list">From Host to Cart/List</Link>
       </div>
       <Outlet />
     </div>

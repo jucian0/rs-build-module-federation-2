@@ -4,16 +4,21 @@ import { ModuleFederationPlugin } from "@module-federation/enhanced/rspack";
 
 export default defineConfig({
 	server: {
-		port: 3000,
+		port: 3002,
+	},
+	dev: {
+		// It is necessary to configure assetPrefix, and in the production build, you need to configure output.assetPrefix
+		assetPrefix: "http://localhost:3002",
 	},
 	tools: {
 		rspack: (config, { appendPlugins }) => {
+			// You need to set a unique value that is not equal to other applications
+			config.output!.uniqueName = "cart";
 			appendPlugins([
 				new ModuleFederationPlugin({
-					name: "host",
-					remotes: {
-						remote: "remote@http://localhost:3001/mf-manifest.json",
-						cart: "cart@http://localhost:3002/mf-manifest.json",
+					name: "cart",
+					exposes: {
+						"./app": "./src/app.tsx",
 					},
 					shared: ["react", "react-dom"],
 				}),

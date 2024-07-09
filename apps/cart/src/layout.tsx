@@ -38,12 +38,13 @@ function useRemoteNavigationManager(appName: string, hostName: string) {
 
 export function Layout() {
 
-	useRemoteNavigationManager('remote', 'shell');
-	console.log('Layout rendered remote >>>>>>>');
+	useRemoteNavigationManager('cart', 'shell');
+
+	console.log('Layout rendered cart >>>>>>>');
 
 	return (
 		<div>
-			<span>Remote</span>
+			<span>Cart</span>
 			<Outlet />
 		</div>
 	)
