@@ -18,7 +18,7 @@ export default defineConfig({
 				new ModuleFederationPlugin({
 					name: "consumers",
 					exposes: {
-						"./button": "./src/Button.tsx",
+						"./app": "./src/app.tsx",
 					},
 					shared: ["react", "react-dom"],
 				}),

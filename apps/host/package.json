@@ -1,5 +1,5 @@
 {
-	"name": "api-management",
+	"name": "host",
 	"private": true,
 	"scripts": {
 		"dev": "rsbuild dev --open",
