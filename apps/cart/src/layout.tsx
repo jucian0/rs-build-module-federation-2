@@ -14,7 +14,7 @@ function useRemoteNavigationManager(appName: string, hostName: string) {
 	useEffect(() => {
 		function eventListener(event: any) {
 			const eventPathname = (event as CustomEvent<string>).detail;
-			if (pathname === eventPathname || !matchRoutes(router.routes, { pathname })) {
+			if (pathname === eventPathname || !matchRoutes(router.routes, { pathname: eventPathname })) {
 				return;
 			}
 			navigate(event.detail);
@@ -39,8 +39,6 @@ function useRemoteNavigationManager(appName: string, hostName: string) {
 export function Layout() {
 
 	useRemoteNavigationManager('cart', 'shell');
-
-	console.log('Layout rendered cart >>>>>>>');
 
 	return (
 		<div>

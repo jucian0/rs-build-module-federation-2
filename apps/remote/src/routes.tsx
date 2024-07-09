@@ -20,12 +20,9 @@ export const router = createBrowserRouter([
 			{
 				path: "apps",
 				element: <Apps />,
-			},
-			{
-				path: "*",
-				element: <div>Not Found</div>,
 			}
 		],
 	},
 ], {
+	basename: "/remote",
 });

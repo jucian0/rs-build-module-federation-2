@@ -28,4 +28,5 @@ export const router = createBrowserRouter([
 		],
 	},
 ], {
+	basename: "/cart",
 });

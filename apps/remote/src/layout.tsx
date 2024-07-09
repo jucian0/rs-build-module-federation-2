@@ -14,7 +14,8 @@ function useRemoteNavigationManager(appName: string, hostName: string) {
 	useEffect(() => {
 		function eventListener(event: any) {
 			const eventPathname = (event as CustomEvent<string>).detail;
-			if (pathname === eventPathname || !matchRoutes(router.routes, { pathname })) {
+			console.log('remote pathname --->', eventPathname, matchRoutes(router.routes, { pathname: eventPathname }));
+			if (pathname === eventPathname || !matchRoutes(router.routes, { pathname: eventPathname })) {
 				return;
 			}
 			navigate(event.detail);
@@ -39,8 +40,6 @@ function useRemoteNavigationManager(appName: string, hostName: string) {
 export function Layout() {
 
 	useRemoteNavigationManager('remote', 'shell');
-	console.log('Layout rendered remote >>>>>>>');
-
 	return (
 		<div>
 			<span>Remote</span>
