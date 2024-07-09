@@ -1,5 +1,5 @@
 {
-	"name": "consumers",
+	"name": "remote",
 	"private": true,
 	"scripts": {
 		"dev": "rsbuild dev --open",
