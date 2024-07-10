@@ -2,34 +2,37 @@ import { useEffect } from "react";
 import { Outlet, matchRoutes, useLocation, useNavigate } from "react-router-dom";
 import { router } from "./routes";
 
-function useCurrentPathname() {
-	const location = useLocation();
-	return location.pathname
-}
+type NavigationDetails = {
+	pathname: string;
+	operation: "push" | "replace";
+};
+type NavigationEvent = CustomEvent<NavigationDetails>;
 
 function useRemoteNavigationManager(appName: string, hostName: string) {
 	const navigate = useNavigate();
-	const pathname = useCurrentPathname();
+	const pathname = useLocation().pathname;
 
 	useEffect(() => {
-		function eventListener(event: any) {
-			const eventPathname = (event as CustomEvent<string>).detail;
+		function eventListener(event: NavigationEvent) {
+			const eventPathname = event.detail.pathname
 			if (pathname === eventPathname || !matchRoutes(router.routes, { pathname: eventPathname })) {
 				return;
 			}
 			navigate(event.detail);
 		}
-
-		window.addEventListener(`[${hostName}] - navigated`, eventListener);
+		window.addEventListener(`[${hostName}] - navigated`, eventListener as EventListener);
 		return () => {
-			window.removeEventListener(`[${hostName}] - navigated`, eventListener);
+			window.removeEventListener(`[${hostName}] - navigated`, eventListener as EventListener);
 		};
 	}, [hostName, pathname]);
 
 	useEffect(() => {
 		window.dispatchEvent(
 			new CustomEvent(`[${appName}] - navigated`, {
-				detail: pathname,
+				detail: {
+					pathname: pathname,
+					operation: "push" as const
+				},
 			})
 		);
 	}, [pathname])

@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 
+type NavigationDetails = {
+  pathname: string;
+  operation: "push" | "replace";
+};
+type NavigationEvent = CustomEvent<NavigationDetails>;
+
 function useDispatcherNavigationEvent(appName: string, remoteBasename: string) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -8,29 +14,27 @@ function useDispatcherNavigationEvent(appName: string, remoteBasename: string) {
   useEffect(() => {
     if (location.pathname.startsWith(remoteBasename)) {
       window.dispatchEvent(
-        new CustomEvent(`[${appName}] - navigated`, {
-          detail: location.pathname.replace(remoteBasename, ""),
+        new CustomEvent<NavigationDetails>(`[${appName}] - navigated`, {
+          detail: {
+            pathname: location.pathname.replace(remoteBasename, ""),
+            operation: "push" as const,
+          },
         })
       );
     }
   }, [location, remoteBasename, appName]);
 
   useEffect(() => {
-    const remoteNavigationEventHandler = (event: Event) => {
-      const pathname = (event as CustomEvent<string>).detail;
-      const newPathname = `${remoteBasename}${pathname}`;
+    const remoteNavigationEventHandler = (event: NavigationEvent) => {
+      const newPathname = `${remoteBasename}${event.detail.pathname}`;
       if (newPathname === location.pathname) {
         return;
       }
       navigate(newPathname);
     };
-    window.addEventListener(`[${remoteBasename}] - navigated`, remoteNavigationEventHandler);
-
+    window.addEventListener(`[${remoteBasename}] - navigated`, remoteNavigationEventHandler as EventListener);
     return () => {
-      window.removeEventListener(
-        `[${remoteBasename}] - navigated`,
-        remoteNavigationEventHandler
-      );
+      window.removeEventListener(`[${remoteBasename}] - navigated`, remoteNavigationEventHandler as EventListener);
     };
   }, [location]);
 }
