@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet, matchRoutes, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, matchRoutes, useLocation, useNavigate } from "react-router-dom";
 import { router } from "./routes";
 
 type NavigationDetails = {
@@ -46,8 +46,13 @@ export function Layout() {
 	return (
 		<div>
 			<span>Cart</span>
+			<div style={{ display: 'flex', gap: 10 }}>
+				<a href="/remote/apps">From Cart to Remote/App</a>
+				<a href="/remote/tokens">From Cart to Remote/Tokens</a>
+				<Link to="/item">From Cart to Cart/item</Link>
+				<Link to="/list">From Cart to Cart/List</Link>
+			</div>
 			<Outlet />
 		</div>
 	)
 }
-
