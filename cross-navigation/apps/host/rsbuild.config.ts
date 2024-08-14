@@ -16,6 +16,7 @@ export default defineConfig({
 						cart: "cart@http://localhost:3002/mf-manifest.json",
 					},
 					shared: ["react", "react-dom"],
+					runtimePlugins: [require.resolve("./shared-strategy")]
 				}),
 			]);
 		},

@@ -19,13 +19,15 @@ export const router = createBrowserRouter([
         path: '/remote/*',
         element: <React.Suspense fallback={<div>Loading...</div>}>
           <Remote />
-        </React.Suspense>
+        </React.Suspense>,
+        errorElement: <div>Error</div>
       },
       {
         path: '/cart/*',
         element: <React.Suspense fallback={<div>Loading...</div>}>
           <Cart />
-        </React.Suspense>
+        </React.Suspense>,
+        errorElement: <div>Error</div>
       }
     ]
   }

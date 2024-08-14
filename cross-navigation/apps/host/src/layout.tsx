@@ -1,43 +1,6 @@
-import { useEffect } from "react";
-import { Link, Outlet, useLocation, useNavigate, } from "react-router-dom";
+import { useDispatcherNavigationEvent } from "navigation/router";
+import { Link, Outlet } from "react-router-dom";
 
-type NavigationDetails = {
-  pathname: string;
-  operation: "push" | "replace";
-};
-type NavigationEvent = CustomEvent<NavigationDetails>;
-
-function useDispatcherNavigationEvent(appName: string, remoteBasename: string) {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (location.pathname.startsWith(remoteBasename)) {
-      window.dispatchEvent(
-        new CustomEvent<NavigationDetails>(`[${appName}] - navigated`, {
-          detail: {
-            pathname: location.pathname.replace(remoteBasename, ""),
-            operation: "push" as const,
-          },
-        })
-      );
-    }
-  }, [location, remoteBasename, appName]);
-
-  useEffect(() => {
-    const remoteNavigationEventHandler = (event: NavigationEvent) => {
-      const newPathname = `${remoteBasename}${event.detail.pathname}`;
-      if (newPathname === location.pathname) {
-        return;
-      }
-      navigate(newPathname);
-    };
-    window.addEventListener(`[${remoteBasename}] - navigated`, remoteNavigationEventHandler as EventListener);
-    return () => {
-      window.removeEventListener(`[${remoteBasename}] - navigated`, remoteNavigationEventHandler as EventListener);
-    };
-  }, [location]);
-}
 
 
 export function Layout() {

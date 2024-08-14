@@ -4,15 +4,32 @@ import { Home } from "./pages/home";
 import { createRemoteComponent } from '@module-federation/bridge-react';
 import { loadRemote } from '@module-federation/enhanced/runtime';
 
-const Remote = createRemoteComponent({
-  loader: () => loadRemote('remote/app'),
-  fallback: () => <div>Loading...</div>
+const FallbackComp = <div>loading</div>;
 
-});
+const FallbackErrorComp = (info: any) => {
+  return (
+    <div>
+      {info?.error?.message}
+      <button type="button" onClick={() => info.resetErrorBoundary()}>
+        resetErrorBoundary
+      </button>
+    </div>
+  );
+};
+
 const Cart = createRemoteComponent({
   loader: () => loadRemote('cart/app'),
-  fallback: () => <div>Loading...</div>,
+  fallback: FallbackErrorComp,
+  loading: FallbackComp,
 });
+
+const Remote = createRemoteComponent({
+  loader: () => loadRemote('remote/app'),
+  fallback: FallbackErrorComp,
+  loading: FallbackComp,
+});
+
+
 
 export const router = createBrowserRouter([
   {
@@ -25,11 +42,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/remote/*',
-        element: <Remote />
+        Component: () => <Remote basename="remote" />
       },
       {
         path: '/cart/*',
-        element: <Cart />
+        Component: () => <Cart basename="cart" />
       }
     ]
   }

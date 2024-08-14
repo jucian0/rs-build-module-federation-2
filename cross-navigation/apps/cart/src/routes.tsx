@@ -21,10 +21,7 @@ export const router = createBrowserRouter([
 				path: "item",
 				element: <Item />,
 			},
-			{
-				path: "*",
-				element: <div>Not Found</div>,
-			}
+
 		],
 	},
 ], {
