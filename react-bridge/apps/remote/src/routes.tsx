@@ -6,7 +6,7 @@ import { Home } from "./pages/home";
 
 export const router = createBrowserRouter([
 	{
-		path: "/",
+		path: "remote",
 		element: <Layout />,
 		children: [
 			{
@@ -20,9 +20,13 @@ export const router = createBrowserRouter([
 			{
 				path: "apps",
 				element: <Apps />,
-			}
+			},
 		],
 	},
+	{
+		path: "*",
+		element: <>Remote 404</>
+	}
 ], {
-	basename: "/",
+	basename: "/remote",
 });

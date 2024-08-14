@@ -6,7 +6,7 @@ import { Home } from "./pages/home";
 
 export const router = createBrowserRouter([
 	{
-		path: "/",
+		path: "cart",
 		element: <Layout />,
 		children: [
 			{
@@ -21,12 +21,12 @@ export const router = createBrowserRouter([
 				path: "item",
 				element: <Item />,
 			},
-			{
-				path: "*",
-				element: <div>Not Found</div>,
-			}
 		],
 	},
+	{
+		path: "*",
+		element: <>Cart 404</>
+	}
 ], {
-	basename: "/",
+	basename: "/cart",
 });
