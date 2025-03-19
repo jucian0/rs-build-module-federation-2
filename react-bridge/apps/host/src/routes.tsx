@@ -30,7 +30,6 @@ const Remote = createRemoteComponent({
 });
 
 
-
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +47,10 @@ export const router = createBrowserRouter([
         path: '/cart/*',
         Component: () => <Cart basename="cart" />
       },
+      {
+        path: '*',
+        element: <>Home 404</>
+      }
     ]
   },
   {

@@ -1,9 +1,6 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 export function Layout() {
-  const location = useLocation();
-
-  console.log("Layout location", location);
 
   return (
     <div style={{ display: 'flex', gap: 10, flexDirection: "column" }}>

@@ -2,20 +2,21 @@
 	"name": "cart",
 	"private": true,
 	"scripts": {
-		"dev": "rsbuild dev --open",
+		"dev": "rsbuild dev",
 		"build": "rsbuild build",
 		"preview": "rsbuild preview"
 	},
 	"dependencies": {
-		"@module-federation/bridge-react": "^0.4.0",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
-		"react-router-dom": "6.24.1"
+		"react-router-dom": "7.3.0"
 	},
 	"devDependencies": {
-		"@module-federation/enhanced": "^0.4.0",
-		"@rsbuild/core": "^0.7.10",
-		"@rsbuild/plugin-react": "^0.7.10",
+		"@module-federation/bridge-react": "^0.11.1",
+		"@module-federation/enhanced": "^0.11.1",
+		"@module-federation/rsbuild-plugin": "^0.11.1",
+		"@rsbuild/core": "^1.2.19",
+		"@rsbuild/plugin-react": "^1.1.1",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
 		"typescript": "^5.5.4"
